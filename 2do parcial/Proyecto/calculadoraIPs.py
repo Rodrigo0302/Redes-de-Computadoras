@@ -11,9 +11,7 @@ def calcular_subredes(ip, mascara_actual, nueva_mascara):
     cantidad_subredes = 2 ** (nueva_mascara - mascara_actual)
     print(f'Cantidad de subredes: {cantidad_subredes}')
 
-    #aux = enumerate(red_actual.subnets(new_prefix=nueva_mascara))
-    #for i in aux:
-    #    print(i)
+
     # Calcular el tamaño de cada subred
     tamano_subred = int(nueva_red.num_addresses / cantidad_subredes)
     print(f'Hosts de cada subred: {tamano_subred}')

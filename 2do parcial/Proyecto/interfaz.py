@@ -1,4 +1,5 @@
 import tkinter as tk
+#import customtkinter
 import re
 from tkinter import messagebox
 import calculadoraIPsClass as calc
@@ -76,21 +77,21 @@ def crear_interfaz():
     validar_numeros_cmd = (ventana.register(validar_numeros), '%P')
 
     # Etiqueta y campo de entrada para la dirección IP
-    etiqueta_ip = tk.Label(ventana, text="Dirección IP:")
+    etiqueta_ip = tk.Label(ventana, text="Dirección IP:", font=("Arial",13))
     etiqueta_ip.pack()
     campo_ip = tk.Entry(ventana)
     campo_ip.pack()
 
     # Etiqueta y campo de entrada para la máscara actual
-    etiqueta_mascara_actual = tk.Label(ventana, text="Máscara actual:")
+    etiqueta_mascara_actual = tk.Label(ventana, text="Máscara actual:",font=("Arial",13))
     etiqueta_mascara_actual.pack()
     campo_mascara_actual = tk.Entry(ventana, validate='key', validatecommand=validar_numeros_cmd)
     campo_mascara_actual.pack()
 
     # Etiqueta y campo de entrada para la nueva máscara
-    etiqueta_mascara_nueva = tk.Label(ventana, text="Nueva máscara:")
+    etiqueta_mascara_nueva = tk.Label(ventana, text="Nueva máscara:",font=("Arial",13))
     etiqueta_mascara_nueva.pack()
-    campo_mascara_nueva = tk.Entry(ventana, validate='key', validatecommand=validar_numeros_cmd)
+    campo_mascara_nueva = tk.Entry(ventana, validate='key', validatecommand=validar_numeros_cmd,font=("Arial",13))
     campo_mascara_nueva.pack()
 
     # Botón para imprimir la tabla
@@ -98,9 +99,12 @@ def crear_interfaz():
     boton_imprimir.pack()
 
     # Etiqueta para mostrar la tabla
-    etiqueta_tabla = tk.Label(ventana, text="Tabla de subredes")
+    etiqueta_tabla = tk.Label(ventana, text="Tabla de subredes",font=("Arial",13))
     etiqueta_tabla.pack()
     text_area = tk.Text(ventana, height=80, width=150)
+    #Aumentar tamaño de la fuente en el text area
+
+
     text_area.pack(padx=10, pady=10)
     text_area.config(state='disabled')
 

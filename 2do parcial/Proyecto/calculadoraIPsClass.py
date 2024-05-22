@@ -141,7 +141,7 @@ class CalculadoraIPs:
             texto_Descripcion += f'Hosts de cada subred: {tamano_subred}\n'
 
             t = PrettyTable(['Subred', 'Direccion de subred', 'Rango de host', 'Direccion de broadcast','Cantidad de host'])
-
+            tabla = []
 
             #pasar ip a bits
             ip_bin = CalculadoraIPs.calcular_en_bits(ip)
@@ -270,6 +270,7 @@ class CalculadoraIPs:
                     #print('Rango de host:', ip_minima, '-', ip_maxima)
 
                 t.add_row([i+1, direccion_red, f'{direccion_minima} - {direccion_maxima}', direccion_broadcast, tamano_subred])
+                tabla.append([i+1, direccion_red, f'{direccion_minima} - {direccion_maxima}', direccion_broadcast, tamano_subred])
 
             print(t)
             return t,texto_Descripcion
@@ -280,14 +281,22 @@ class CalculadoraIPs:
 
     def main_sub(ip,mascara_actual,mascara_nueva):
         direccion_red = CalculadoraIPs.aplicarMascara(ip, CalculadoraIPs.calcular_mascara(mascara_actual))
+        tabla_desc = []
         t = PrettyTable(['Dato', 'Direccion IP', 'Binario'])
         t.add_row(['Direccion de red', direccion_red, CalculadoraIPs.calcular_en_bits(direccion_red)])
+        tabla_desc.append(['Direccion de red', direccion_red, CalculadoraIPs.calcular_en_bits(direccion_red)])
         t.add_row(['Mascara', CalculadoraIPs.calcular_mascara(mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_mascara(mascara_actual))])
+        tabla_desc.append(['Mascara', CalculadoraIPs.calcular_mascara(mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_mascara(mascara_actual))])
         t.add_row(['Host minimo', CalculadoraIPs.calcular_host_minimo(ip,mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_host_minimo(ip,mascara_actual))])
+        tabla_desc.append(['Host minimo', CalculadoraIPs.calcular_host_minimo(ip,mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_host_minimo(ip,mascara_actual))])
         t.add_row(['Host maximo', CalculadoraIPs.calcular_host_maximo(ip,mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_host_maximo(ip,mascara_actual))])
+        tabla_desc.append(['Host maximo', CalculadoraIPs.calcular_host_maximo(ip,mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_host_maximo(ip,mascara_actual))])
         t.add_row(['Direccion de broadcast', CalculadoraIPs.calcular_broadcast(ip,mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_broadcast(ip,mascara_actual))])
+        tabla_desc.append(['Direccion de broadcast', CalculadoraIPs.calcular_broadcast(ip,mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_broadcast(ip,mascara_actual))])
         t.add_row(['Cantidad de host', CalculadoraIPs.calcular_ips_disponibles(mascara_actual), ''])
+        tabla_desc.append(['Cantidad de host', CalculadoraIPs.calcular_ips_disponibles(mascara_actual), ''])
         t.add_row(['Clase', CalculadoraIPs.obtenerClase(ip), ''])
+        tabla_desc.append(['Clase', CalculadoraIPs.obtenerClase(ip), ''])
 
 
         print(t)

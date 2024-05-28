@@ -7,28 +7,11 @@ class CalculadoraIPs:
             mascara[i // 8] += 1 << (7 - i % 8)
         return '.'.join(map(str, mascara))
 
-    def calcular_rango_direcciones(ip, cidr):
-        direccion = ip.split('.')
-        mascara = CalculadoraIPs.calcular_mascara(cidr)
-
-        direccion_red = []
-        for i in range(4):
-            direccion_red.append(int(direccion[i]) & int(mascara.split('.')[i]))
-
-        direccion_broadcast = []
-        for i in range(4):
-            direccion_broadcast.append(int(direccion[i]) | (255 - int(mascara.split('.')[i])))
-
-        return '.'.join(map(str, direccion_red)), '.'.join(map(str, direccion_broadcast))
+    
 
     def calcular_ips_disponibles(cidr):
         return 2 ** (32 - cidr) - 2
 
-    def calcular_mascara(cidr):
-        mascara = [0, 0, 0, 0]
-        for i in range(cidr):
-            mascara[i // 8] += 1 << (7 - i % 8)
-        return '.'.join(map(str, mascara))
     def calcular_broadcast(ip, cidr):
         direccion = ip.split('.')
         mascara = CalculadoraIPs.calcular_mascara(cidr)
@@ -155,120 +138,66 @@ class CalculadoraIPs:
             for i in range(cantidad_subredes):
                 if i == 1000:
                     break
-                
+
                 if i == 0:
-                   #Sumar el salto a la ip en binario
-
-                    ip_bin = ip_bin.zfill(32)   
-                    #print('IP en binario:', ip_bin)
-                    #Pasarlo a octetos
-                    direccion_red = []
-                    direccion_red.append(str(int(ip_bin[0:8], 2)))
-                    direccion_red.append(str(int(ip_bin[8:16], 2)))
-                    direccion_red.append(str(int(ip_bin[16:24], 2)))
-                    direccion_red.append(str(int(ip_bin[24:32], 2)))
-                    direccion_red = '.'.join(direccion_red)
-                    #print('Direccion de red:', direccion_red)
-
-                    #Calcular el broadcast en binario
-                    broadcast = ip_bin
-
-                    broadcast = list(broadcast)
-
-                    for j in range(mascara_nueva, 32):
-                        broadcast[j] = '1'
-                    broadcast = ''.join(broadcast)
-                    #print('Broadcast en binario:', broadcast)
-                    direccion_broadcast = []
-                    direccion_broadcast.append(str(int(broadcast[0:8], 2)))
-                    direccion_broadcast.append(str(int(broadcast[8:16], 2)))
-                    direccion_broadcast.append(str(int(broadcast[16:24], 2)))
-                    direccion_broadcast.append(str(int(broadcast[24:32], 2)))
-                    direccion_broadcast = '.'.join(direccion_broadcast)
-                    #print('Direccion de broadcast:', direccion_broadcast)
-
-                    #Calcular el rango de host
-                    ip_minima = int(ip_bin, 2)+1
-                    ip_minima = bin(ip_minima).replace('0b', '')
-                    ip_minima = ip_minima.zfill(32)
-                    direccion_minima = []
-                    direccion_minima.append(str(int(ip_minima[0:8], 2)))
-                    direccion_minima.append(str(int(ip_minima[8:16], 2)))
-                    direccion_minima.append(str(int(ip_minima[16:24], 2)))
-                    direccion_minima.append(str(int(ip_minima[24:32], 2)))
-                    direccion_minima = '.'.join(direccion_minima)
-
-
-
-                    #print('IP minima:', direccion_minima)
-                    ip_maxima = int(broadcast, 2) - 1
-                    ip_maxima = bin(ip_maxima).replace('0b', '')
-                    ip_maxima = ip_maxima.zfill(32)
-                    direccion_maxima = []
-                    direccion_maxima.append(str(int(ip_maxima[0:8], 2)))
-                    direccion_maxima.append(str(int(ip_maxima[8:16], 2)))
-                    direccion_maxima.append(str(int(ip_maxima[16:24], 2)))
-                    direccion_maxima.append(str(int(ip_maxima[24:32], 2)))
-                    direccion_maxima = '.'.join(direccion_maxima)
+                    #Numero binario de 32 bits inicializado en cero
+                    bin32_z = 0
+                    bin32_z = bin(bin32_z).replace('0b', '')
+                    bin32_z = bin32_z.zfill(32)
+                    bin32_z = int(bin32_z, 2)
                 else:
-                    #Sumar el salto a la ip en binario
-                    ip_bin = int(ip_bin, 2)
-                    ip_bin = ip_bin + bin32
-                    ip_bin = bin(ip_bin).replace('0b', '')
-                    ip_bin = ip_bin.zfill(32)   
-                    #print('IP en binario:', ip_bin)
-                    #Pasarlo a octetos
-                    direccion_red = []
-                    direccion_red.append(str(int(ip_bin[0:8], 2)))
-                    direccion_red.append(str(int(ip_bin[8:16], 2)))
-                    direccion_red.append(str(int(ip_bin[16:24], 2)))
-                    direccion_red.append(str(int(ip_bin[24:32], 2)))
-                    direccion_red = '.'.join(direccion_red)
-                    #print('Direccion de red:', direccion_red)
+                    bin32_z = bin32
 
-                    #Calcular el broadcast en binario
-                    broadcast = ip_bin
-
-                    broadcast = list(broadcast)
-
-                    for j in range(mascara_nueva, 32):
-                        broadcast[j] = '1'
-                    broadcast = ''.join(broadcast)
-                    #print('Broadcast en binario:', broadcast)
-                    direccion_broadcast = []
-                    direccion_broadcast.append(str(int(broadcast[0:8], 2)))
-                    direccion_broadcast.append(str(int(broadcast[8:16], 2)))
-                    direccion_broadcast.append(str(int(broadcast[16:24], 2)))
-                    direccion_broadcast.append(str(int(broadcast[24:32], 2)))
-                    direccion_broadcast = '.'.join(direccion_broadcast)
-                    #print('Direccion de broadcast:', direccion_broadcast)
-
-                    #Calcular el rango de host
-                    ip_minima = int(ip_bin, 2)+1
-                    ip_minima = bin(ip_minima).replace('0b', '')
-                    ip_minima = ip_minima.zfill(32)
-                    direccion_minima = []
-                    direccion_minima.append(str(int(ip_minima[0:8], 2)))
-                    direccion_minima.append(str(int(ip_minima[8:16], 2)))
-                    direccion_minima.append(str(int(ip_minima[16:24], 2)))
-                    direccion_minima.append(str(int(ip_minima[24:32], 2)))
-                    direccion_minima = '.'.join(direccion_minima)
-
-
-
-                    #print('IP minima:', direccion_minima)
-                    ip_maxima = int(broadcast, 2) - 1
-                    ip_maxima = bin(ip_maxima).replace('0b', '')
-                    ip_maxima = ip_maxima.zfill(32)
-                    direccion_maxima = []
-                    direccion_maxima.append(str(int(ip_maxima[0:8], 2)))
-                    direccion_maxima.append(str(int(ip_maxima[8:16], 2)))
-                    direccion_maxima.append(str(int(ip_maxima[16:24], 2)))
-                    direccion_maxima.append(str(int(ip_maxima[24:32], 2)))
-                    direccion_maxima = '.'.join(direccion_maxima)
-                    #print('IP maxima:', direccion_maxima)
-                    #print('Rango de host:', ip_minima, '-', ip_maxima)
-
+                #Sumar el salto a la ip en binario
+                ip_bin = int(ip_bin, 2)
+                ip_bin = ip_bin + bin32_z
+                ip_bin = bin(ip_bin).replace('0b', '')
+                ip_bin = ip_bin.zfill(32)   
+                #print('IP en binario:', ip_bin)
+                #Pasarlo a octetos
+                direccion_red = []
+                direccion_red.append(str(int(ip_bin[0:8], 2)))
+                direccion_red.append(str(int(ip_bin[8:16], 2)))
+                direccion_red.append(str(int(ip_bin[16:24], 2)))
+                direccion_red.append(str(int(ip_bin[24:32], 2)))
+                direccion_red = '.'.join(direccion_red)
+                #print('Direccion de red:', direccion_red)
+                #Calcular el broadcast en binario
+                broadcast = ip_bin
+                broadcast = list(broadcast)
+                for j in range(mascara_nueva, 32):
+                    broadcast[j] = '1'
+                broadcast = ''.join(broadcast)
+                #print('Broadcast en binario:', broadcast)
+                direccion_broadcast = []
+                direccion_broadcast.append(str(int(broadcast[0:8], 2)))
+                direccion_broadcast.append(str(int(broadcast[8:16], 2)))
+                direccion_broadcast.append(str(int(broadcast[16:24], 2)))
+                direccion_broadcast.append(str(int(broadcast[24:32], 2)))
+                direccion_broadcast = '.'.join(direccion_broadcast)
+                #print('Direccion de broadcast:', direccion_broadcast)
+                #Calcular el rango de host
+                ip_minima = int(ip_bin, 2)+1
+                ip_minima = bin(ip_minima).replace('0b', '')
+                ip_minima = ip_minima.zfill(32)
+                direccion_minima = []
+                direccion_minima.append(str(int(ip_minima[0:8], 2)))
+                direccion_minima.append(str(int(ip_minima[8:16], 2)))
+                direccion_minima.append(str(int(ip_minima[16:24], 2)))
+                direccion_minima.append(str(int(ip_minima[24:32], 2)))
+                direccion_minima = '.'.join(direccion_minima)
+                #print('IP minima:', direccion_minima)
+                ip_maxima = int(broadcast, 2) - 1
+                ip_maxima = bin(ip_maxima).replace('0b', '')
+                ip_maxima = ip_maxima.zfill(32)
+                direccion_maxima = []
+                direccion_maxima.append(str(int(ip_maxima[0:8], 2)))
+                direccion_maxima.append(str(int(ip_maxima[8:16], 2)))
+                direccion_maxima.append(str(int(ip_maxima[16:24], 2)))
+                direccion_maxima.append(str(int(ip_maxima[24:32], 2)))
+                direccion_maxima = '.'.join(direccion_maxima)
+                #print('IP maxima:', direccion_maxima)
+                #print('Rango de host:', ip_minima, '-', ip_maxima)
                 t.add_row([i+1, direccion_red, f'{direccion_minima} - {direccion_maxima}', direccion_broadcast, tamano_subred])
                 tabla.append([i+1, direccion_red, f'{direccion_minima} - {direccion_maxima}', direccion_broadcast, tamano_subred])
 
@@ -281,23 +210,14 @@ class CalculadoraIPs:
 
     def main_sub(ip,mascara_actual,mascara_nueva):
         direccion_red = CalculadoraIPs.aplicarMascara(ip, CalculadoraIPs.calcular_mascara(mascara_actual))
-        tabla_desc = []
         t = PrettyTable(['Dato', 'Direccion IP', 'Binario'])
         t.add_row(['Direccion de red', direccion_red, CalculadoraIPs.calcular_en_bits(direccion_red)])
-        tabla_desc.append(['Direccion de red', direccion_red, CalculadoraIPs.calcular_en_bits(direccion_red)])
         t.add_row(['Mascara', CalculadoraIPs.calcular_mascara(mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_mascara(mascara_actual))])
-        tabla_desc.append(['Mascara', CalculadoraIPs.calcular_mascara(mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_mascara(mascara_actual))])
         t.add_row(['Host minimo', CalculadoraIPs.calcular_host_minimo(ip,mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_host_minimo(ip,mascara_actual))])
-        tabla_desc.append(['Host minimo', CalculadoraIPs.calcular_host_minimo(ip,mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_host_minimo(ip,mascara_actual))])
         t.add_row(['Host maximo', CalculadoraIPs.calcular_host_maximo(ip,mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_host_maximo(ip,mascara_actual))])
-        tabla_desc.append(['Host maximo', CalculadoraIPs.calcular_host_maximo(ip,mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_host_maximo(ip,mascara_actual))])
         t.add_row(['Direccion de broadcast', CalculadoraIPs.calcular_broadcast(ip,mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_broadcast(ip,mascara_actual))])
-        tabla_desc.append(['Direccion de broadcast', CalculadoraIPs.calcular_broadcast(ip,mascara_actual), CalculadoraIPs.calcular_en_bits(CalculadoraIPs.calcular_broadcast(ip,mascara_actual))])
         t.add_row(['Cantidad de host', CalculadoraIPs.calcular_ips_disponibles(mascara_actual), ''])
-        tabla_desc.append(['Cantidad de host', CalculadoraIPs.calcular_ips_disponibles(mascara_actual), ''])
         t.add_row(['Clase', CalculadoraIPs.obtenerClase(ip), ''])
-        tabla_desc.append(['Clase', CalculadoraIPs.obtenerClase(ip), ''])
-
 
         print(t)
 

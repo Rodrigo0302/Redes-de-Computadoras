@@ -4,6 +4,8 @@ from CTkMessagebox import CTkMessagebox
 import re
 import calculadoraIPsClass as calc
 
+customtkinter.set_appearance_mode("light")
+
 def validar_numeros(nuevo_valor):
     # Esta función se llama cada vez que el contenido del cuadro de texto cambia
     # new_value es el nuevo valor del cuadro de texto
@@ -85,43 +87,43 @@ def crear_interfaz():
 
     # Etiqueta y campo de entrada para la dirección IP
     #etiqueta_ip = tk.Label(ventana, text="Dirección IP:", font=("Arial",13))
-    etiqueta__ip = customtkinter.CTkLabel(master=ventana, text="Dirección IP:")
+    etiqueta__ip = customtkinter.CTkLabel(master=ventana, text="Dirección IP:",font=("Arial",18))
     etiqueta__ip.pack()
     #campo_ip = tk.Entry(ventana)
-    campo_ip = customtkinter.CTkEntry(master=ventana, placeholder_text="XXX.XXX.XXX.XXX")
+    campo_ip = customtkinter.CTkEntry(master=ventana, placeholder_text="XXX.XXX.XXX.XXX",font=("Arial",18))
     campo_ip.pack()
 
     # Etiqueta y campo de entrada para la máscara actual
     #etiqueta_mascara_actual = tk.Label(ventana, text="Máscara actual:",font=("Arial",13))
-    etiqueta_mascara_actual = customtkinter.CTkLabel(master=ventana, text="Máscara actual:")
+    etiqueta_mascara_actual = customtkinter.CTkLabel(master=ventana, text="Máscara actual:",font=("Arial",18))
     etiqueta_mascara_actual.pack()
     #campo_mascara_actual = tk.Entry(ventana, validate='key', validatecommand=validar_numeros_cmd)
-    campo_mascara_actual = customtkinter.CTkEntry(master=ventana, validate='key', validatecommand=validar_numeros_cmd, placeholder_text="24")
+    campo_mascara_actual = customtkinter.CTkEntry(master=ventana, validate='key', validatecommand=validar_numeros_cmd, placeholder_text="24", font=("Arial",18))
     campo_mascara_actual.pack()
 
     # Etiqueta y campo de entrada para la nueva máscara
     #etiqueta_mascara_nueva = tk.Label(ventana, text="Nueva máscara:",font=("Arial",13))
-    etiqueta_mascara_nueva = customtkinter.CTkLabel(master=ventana, text="Nueva máscara:")
+    etiqueta_mascara_nueva = customtkinter.CTkLabel(master=ventana, text="Nueva máscara:", font=("Arial",18))
     etiqueta_mascara_nueva.pack()
     #campo_mascara_nueva = tk.Entry(ventana, validate='key', validatecommand=validar_numeros_cmd,font=("Arial",13))
-    campo_mascara_nueva = customtkinter.CTkEntry(master=ventana, validate='key', validatecommand=validar_numeros_cmd, placeholder_text="26")
+    campo_mascara_nueva = customtkinter.CTkEntry(master=ventana, validate='key', validatecommand=validar_numeros_cmd, placeholder_text="26",font=("Arial",18))
     campo_mascara_nueva.pack()
 
     # Botón para imprimir la tabla
     #boton_imprimir = tk.Button(ventana, text="Calcular Subredes", command= lambda: actualizar_tabla(ventana,text_area, campo_ip, campo_mascara_actual, campo_mascara_nueva))
     boton_imprimir = customtkinter.CTkButton(master=ventana, corner_radius=10, command= lambda: actualizar_tabla(ventana,text_area, campo_ip, campo_mascara_actual, campo_mascara_nueva), 
-                                             text="Calcular Subredes", font=("Arial",13))
+                                             text="Calcular Subredes", font=("Arial",18))
     
     boton_imprimir.place(relx=0.5, rely=0.5, anchor= tk.CENTER)
     boton_imprimir.pack()
 
     # Etiqueta para mostrar la tabla
     #etiqueta_tabla = tk.Label(ventana, text="Tabla de subredes",font=("Arial",13))
-    etiqueta_tabla = customtkinter.CTkLabel(master=ventana, text="Tabla de subredes")
+    etiqueta_tabla = customtkinter.CTkLabel(master=ventana, text="Tabla de subredes", font=("Arial",18))
     etiqueta_tabla.pack()
 
     #text_area = tk.Text(ventana, height=80, width=150)
-    text_area = customtkinter.CTkTextbox(master=ventana, height=700, width=1500, text_color="white",font=("Courier",15))
+    text_area = customtkinter.CTkTextbox(master=ventana, height=700, width=1500,font=("Courier",17))
     text_area.configure(state='disabled')
     text_area.pack(padx=10, pady=10)
 
